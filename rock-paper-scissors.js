@@ -1,3 +1,34 @@
+function get(query){
+  return document.querySelector(query);
+}
+
+const header = get("header");
+const selection = get("#selection");
+const option = document.querySelectorAll("#option button")
+const play = get("#play");
+const help = get("#selection .details")
+
+play.addEventListener("click", previewSelection);
+
+
+function previewSelection(event){
+  header.style.opacity = 0;
+  play.style.opacity = 0;
+  selection.style.transform = "translate(0, 15vh) scale(0.9, 0.9)";
+  for(let i=0; i<option.length; i++){
+    option[i].style.borderColor = "rgb(255, 255, 255)";
+    option[i].disabled = false;
+  }
+  setTimeout(()=>{
+  help.style = "opacity: 1; transition: 0.5s linear;";
+  }, 800)
+  
+
+
+}
+
+
+
 let playerScore = 0;
       let computerScore = 0;
       function computerPlay(){
