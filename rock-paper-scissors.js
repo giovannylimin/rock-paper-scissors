@@ -18,6 +18,7 @@ const mark = get (".mark")
 
 
 play.addEventListener("click", previewSelection);
+
 for(let i=0; i<option.length; i++){
   option[i].disabled = true;
 }
@@ -25,14 +26,14 @@ for(let i=0; i<option.length; i++){
 function previewSelection(event){
   header.style.opacity = 0;
   play.style.opacity = 0;
-  selection.style.transform = "translate(0, 25vh) scale(0.8, 0.8)";
+  play.style.visibility = "hidden";
+  selection.style = "visibility: visible; transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 1;";
   for(let i=0; i<option.length; i++){
     option[i].disabled = false;
   }
   hoverableOptions();
   setTimeout(()=>{
     help.style = "opacity: 1; transition: 0.5s linear; animation: help 1s infinite alternate;";
-    play.style = "display: none;";
   }, 800)
   playerWindow.style = "opacity: 1; left: 10vw ; transition: 1s"
   computerWindow.style = "opacity: 1; right: 10vw ; transition: 1s"
@@ -45,7 +46,6 @@ let computerChoice;
 function hoverableOptions(){
   selection.style.diplay = "block;"
 for(let i=0; i<option.length; i++){
-  
   option[i].addEventListener("mouseover", ()=>{
     option[i].style = "border-color: rgb(255, 255, 255); box-shadow: 0 0  2vw  rgb(255, 255, 255); transform: scale(1.1,1.1); transition : border 0s, transform 0.5s;"
   })
@@ -66,15 +66,16 @@ function computerPlay(){
 }
 
 function previewResult(){
-  selection.disabled = 0;
-  selection.style = "opacity: 0; display: none;"
+  
+  selection.style = "transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 0; visibility: hidden;"
   changeBackground("player");
   changeBackground("computer");
   determineWinner();
   header.style.opacity = 1;
+  play.disabled = false;
   play.textContent = "replay";
-  setTimeout(()=> play.style = "display: block, opacity: 1, transform: translate(0, 50vh);", 800)
-  
+  setTimeout(()=> play.style = "transform: translate(0, 5vh); visibility: visible; opacity; 1", 500)
+  play.addEventListener("click", previewSelection);
 }
 
 function changeBackground(who){
