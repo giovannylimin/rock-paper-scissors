@@ -70,13 +70,12 @@ h1, p{
 ;
 }
 
-*{
-  transition: ease-in-out 0.8s;
-}
+
 header{
   text-align: center;
   opacity: 1;
   margin: 7vh auto;
+  transition: ease-in-out 0.8s;
 }
 header h1{
   text-transform: uppercase;
@@ -94,6 +93,7 @@ button{
 }
 #selection{
 margin: 5vh auto;
+transition: ease-in-out 0.8s;
 }
 
 #option{
@@ -115,6 +115,7 @@ margin: 5vh auto;
   background-size: 35vw;
   background-image: url(img/hand-sprite.png);
   border-color: transparent;
+  z-index: 1000;
 }
 #selection .details{
   font-size: 3vw;
@@ -147,6 +148,8 @@ margin: 5vh auto;
   margin: 5vh auto;
   display: block;
   letter-spacing: 0.8vw;
+  z-index: -1000;
+  transition: ease-in-out 0.8s;
   /*position: absolute;
   bottom: 5vw;
   left: calc(50% - 10vw);*/
@@ -197,6 +200,17 @@ margin: 5vh auto;
   top: 4vh;
   left: calc(50% - 3vw);
 }
+@keyframes help {
+  from {
+    transform: scale(1,1);
+    opacity: 0.2;    
+  }
+  to {
+    transform: scale(0.95, 0.95);
+    opacity: 1;
+  }
+}
+
 @media only screen and (max-width: 480px) {
 header h1{
 }
