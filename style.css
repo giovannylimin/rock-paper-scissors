@@ -98,7 +98,7 @@ button{
   opacity: 1;
   visibility: visible;
 margin: 5vh auto;
-transition: ease-in-out 0.8s;
+transition: transform ease-in-out 0.8s, opacity ease-in-out 0.8s;
 }
 .down{
   opacity: 1;

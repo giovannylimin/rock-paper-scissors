@@ -29,6 +29,9 @@ for(let i=0; i<option.length; i++){
 }
 
 function previewSelection(event){
+  for(let i=0; i<option.length; i++){
+    option[i].disabled = false;
+  }
   setTimeout(()=>{
     header.classList.add("disappear");
     play.classList.add("disappear");  
@@ -39,9 +42,6 @@ function previewSelection(event){
   selection.classList.remove("disappear");
   selection.classList.add("down")
   /*selection.style = "visibility: visible; transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 1;";*/
-  for(let i=0; i<option.length; i++){
-    option[i].disabled = false;
-  }
   hoverableOptions();
   setTimeout(()=>{
     help.classList.add("help-animate");
@@ -70,16 +70,19 @@ for(let i=0; i<option.length; i++){
   option[i].addEventListener("mouseout", ()=>{
     option[i].style = "transition : 0.5s;"
   })
-  option[i].addEventListener("touchend", ()=>{
-    playerChoice = option[i].className;
-    computerChoice = computerPlay();
-    previewResult();
-  })
-  option[i].addEventListener("click", ()=>{
-    playerChoice = option[i].className;
-    computerChoice = computerPlay();
-    previewResult();
-  })
+  option[i].addEventListener("touchend", selectedOptions)
+  option[i].addEventListener("click", selectedOptions)
+}
+function selectedOptions(event){
+  for(let i=0; i<option.length; i++){
+    option[i].setAttribute("disabled", true);
+    playerChoice = this.className;
+    option[i].removeEventListener("click", selectedOptions);
+    option[i].removeEventListener("touchend", selectedOptions);
+    option[i].setAttribute("disabled", true);
+  }
+  computerChoice = computerPlay();  
+  previewResult();
 }
 }
 function computerPlay(){
@@ -89,9 +92,6 @@ function computerPlay(){
 }
 
 function previewResult(){
-  for(let i=0; i<option.length; i++){
-    option[i].disabled = true;
-  }
   selection.classList.add("disappear");
   /*selection.style = "transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 0; visibility: hidden;"*/
   changeBackground("player");
