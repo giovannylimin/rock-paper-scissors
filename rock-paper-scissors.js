@@ -5,12 +5,12 @@ function get(query){
 const header = get("header");
 const headerTitle = get("header h1");
 const headerPara = get("header p");
-const selection = get("#selection");
-const option = document.querySelectorAll("#option button")
-const play = get("#play");
-const help = get("#selection .details");
-const playerWindow = get("#playerSelect");
-const computerWindow = get("#computerSelect");
+const selection = get(".selection");
+const option = document.querySelectorAll(".option button")
+const play = get(".play");
+const help = get(".selection .details");
+const playerWindow = get(".player");
+const computerWindow = get(".computer");
 const rock = get (".rock");
 const paper = get (".paper");
 const scissors = get (".scissors");
@@ -24,19 +24,31 @@ for(let i=0; i<option.length; i++){
 }
 
 function previewSelection(event){
-  header.style.opacity = 0;
+  setTimeout(()=>{
+    header.classList.add("disappear");
+    play.classList.add("disappear");  
+  }, -800)
+  /*header.style.opacity = 0;
   play.style.opacity = 0;
-  play.style.visibility = "hidden";
-  selection.style = "visibility: visible; transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 1;";
+  play.style.visibility = "hidden";*/
+  selection.classList.remove("disappear");
+  selection.classList.add("down")
+  /*selection.style = "visibility: visible; transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 1;";*/
   for(let i=0; i<option.length; i++){
     option[i].disabled = false;
   }
   hoverableOptions();
   setTimeout(()=>{
-    help.style = "opacity: 1; transition: 0.5s linear; animation: help 1s infinite alternate;";
+    help.classList.add("help-animate");
+    /*help.style = "opacity: 1; transition: 0.5s linear; animation: help 1s infinite alternate;";*/
   }, 800)
-  playerWindow.style = "opacity: 1; left: 10vw ; transition: 1s"
-  computerWindow.style = "opacity: 1; right: 10vw ; transition: 1s"
+  clearBackground();
+  playerWindow.classList.remove("more-left");
+  playerWindow.classList.add("left");
+  computerWindow.classList.remove("more-right");
+  computerWindow.classList.add("right");
+  /*playerWindow.style = "opacity: 1; left: 10vw ; transition: 1s"
+  computerWindow.style = "opacity: 1; right: 10vw ; transition: 1s"*/
  
 }
 
@@ -44,7 +56,7 @@ let playerChoice;
 let computerChoice;
 
 function hoverableOptions(){
-  selection.style.diplay = "block;"
+  /*selection.style.diplay = "block;"*/
 for(let i=0; i<option.length; i++){
   option[i].addEventListener("mouseover", ()=>{
     option[i].style = "border-color: rgb(255, 255, 255); box-shadow: 0 0  2vw  rgb(255, 255, 255); transform: scale(1.1,1.1); transition : border 0s, transform 0.5s;"
@@ -67,14 +79,19 @@ function computerPlay(){
 
 function previewResult(){
   
-  selection.style = "transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 0; visibility: hidden;"
+  selection.classList.add("disappear");
+  /*selection.style = "transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 0; visibility: hidden;"*/
   changeBackground("player");
   changeBackground("computer");
   determineWinner();
-  header.style.opacity = 1;
-  play.disabled = false;
+  header.classList.remove("disappear");
+  /*header.style.opacity = 1;*/
   play.textContent = "replay";
-  setTimeout(()=> play.style = "transform: translate(0, 5vh); visibility: visible; opacity; 1", 500)
+  setTimeout(()=> {
+    play.classList.remove("disappear");
+    play.classList.add("replay");
+    play.disabled = false;
+  }, 200); /*play.style = "transform: translate(0, 5vh); visibility: visible; opacity; 1", 500)*/
   play.addEventListener("click", previewSelection);
 }
 
@@ -95,15 +112,20 @@ function changeBackground(who){
   }
   
   if(i == 0){
-    playerWindow.style = backgroundPosition +"left: 25vw; top: 27vh;" + " opacity: 1; background-image: url(img/hand-sprite.png), linear-gradient( 225deg, rgb(195,202,208) 0%, rgb(231,241,253) 100%); background-size: 47vw, 100%;";
-    playerWindow.style.transition = "left 0.8s, top 0.8s";
+    playerWindow.style = backgroundPosition + "background-image: url(img/hand-sprite.png), linear-gradient( 225deg, rgb(195,202,208) 0%, rgb(231,241,253) 100%); background-size: 47vw, 100%;";
+    playerWindow.classList.add("more-left");
+    /*playerWindow.style.transition = "left 0.8s, top 0.8s";*/
   }else if (i == 1){
-    computerWindow.style = backgroundPosition + "right: 25vw; top: 27vh;" + "opacity: 1; background-image: url(img/hand-sprite.png), linear-gradient( 225deg, rgb(195,202,208) 0%, rgb(213,222,231) 12%, rgb(231,241,253) 56%); background-size: 47vw, 100%;";
-    computerWindow.style.transition = "right 0.8s, top 0.8s";
+    computerWindow.style = backgroundPosition +  "background-image: url(img/hand-sprite.png), linear-gradient( 225deg, rgb(195,202,208) 0%, rgb(213,222,231) 12%, rgb(231,241,253) 56%); background-size: 47vw, 100%;";
+    computerWindow.classList.add("more-right");
+    /*computerWindow.style.transition = "right 0.8s, top 0.8s";*/
     mark.style.opacity = 0;
   }
 }
-
+function clearBackground(){
+  playerWindow.style = "background-image: linear-gradient( 225deg, rgb(195,202,208) 0%, rgb(231,241,253) 100%);"
+  computerWindow.style ="background-image: linear-gradient( 225deg, rgb(195,202,208) 0%, rgb(213,222,231) 12%, rgb(231,241,253) 56%);"
+}
 function determineWinner(){
   let title;
   let para;
