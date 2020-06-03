@@ -342,10 +342,10 @@ header p{
 }
 .replay{
   position: absolute;
-  bottom: 10vh;
+  bottom: 5vh;
 }
 }
-@media screen and (max-width: 1024px) {
+@media (orientation: portrait) {
   .mark{
     transform: scale(0.8) ;
     top: 15%;
