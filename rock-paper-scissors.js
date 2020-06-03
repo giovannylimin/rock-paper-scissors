@@ -89,7 +89,9 @@ function computerPlay(){
 }
 
 function previewResult(){
-  
+  for(let i=0; i<option.length; i++){
+    option[i].disabled = true;
+  }
   selection.classList.add("disappear");
   /*selection.style = "transform: translate(0, 25vh) scale(0.8, 0.8); opacity: 0; visibility: hidden;"*/
   changeBackground("player");
