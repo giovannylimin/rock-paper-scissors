@@ -251,6 +251,7 @@ transition: ease-in-out 0.8s;
 
 .replay{
   width: 25vw;
+  bottom: -2vh;
 }
 
 @keyframes help {
@@ -264,7 +265,7 @@ transition: ease-in-out 0.8s;
   }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (min-width: 480px) and (max-width: 480px) {
 
   header{
     margin: 10vh 15vw;
@@ -345,7 +346,7 @@ header p{
   bottom: 5vh;
 }
 }
-@media (orientation: portrait) {
+@media screen and (min-width:480px) and (max-width: 1024px) {
   .mark{
     transform: scale(0.8) ;
     top: 15%;
