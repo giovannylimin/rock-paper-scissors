@@ -18,6 +18,11 @@ const mark = get (".mark")
 
 
 play.addEventListener("click", previewSelection);
+play.addEventListener("touchstart", ()=>{
+  play.disabled = false;
+  play.style = "border-color: rgb(255, 255, 255); box-shadow: 0 0  2vw  rgb(255, 255, 255); transform: scale(1.1,1.1);"
+})
+play.addEventListener("touchend", previewSelection);
 
 for(let i=0; i<option.length; i++){
   option[i].disabled = true;
@@ -47,6 +52,7 @@ function previewSelection(event){
   playerWindow.classList.add("left");
   computerWindow.classList.remove("more-right");
   computerWindow.classList.add("right");
+  mark.classList.remove("disappear");
   /*playerWindow.style = "opacity: 1; left: 10vw ; transition: 1s"
   computerWindow.style = "opacity: 1; right: 10vw ; transition: 1s"*/
  
@@ -63,6 +69,11 @@ for(let i=0; i<option.length; i++){
   })
   option[i].addEventListener("mouseout", ()=>{
     option[i].style = "transition : 0.5s;"
+  })
+  option[i].addEventListener("touchend", ()=>{
+    playerChoice = option[i].className;
+    computerChoice = computerPlay();
+    previewResult();
   })
   option[i].addEventListener("click", ()=>{
     playerChoice = option[i].className;
@@ -85,6 +96,7 @@ function previewResult(){
   changeBackground("computer");
   determineWinner();
   header.classList.remove("disappear");
+  header.classList.add("mob");
   /*header.style.opacity = 1;*/
   play.textContent = "replay";
   setTimeout(()=> {
@@ -119,7 +131,7 @@ function changeBackground(who){
     computerWindow.style = backgroundPosition +  "background-image: url(img/hand-sprite.png), linear-gradient( 225deg, rgb(195,202,208) 0%, rgb(213,222,231) 12%, rgb(231,241,253) 56%); background-size: 47vw, 100%;";
     computerWindow.classList.add("more-right");
     /*computerWindow.style.transition = "right 0.8s, top 0.8s";*/
-    mark.style.opacity = 0;
+    mark.classList.add("disappear");
   }
 }
 function clearBackground(){
