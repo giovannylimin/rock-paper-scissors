@@ -362,3 +362,13 @@ header p{
   visibility: hidden;
   opacity: 0;
 }
+
+footer{
+  width: 100%;
+  display: block;
+  color: rgb(145, 156, 163);
+  position: absolute;
+  bottom: 2em;
+  left: 2em;
+
+}
